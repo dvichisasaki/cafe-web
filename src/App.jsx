@@ -445,7 +445,7 @@ function DessertSection() {
 // ATMOSPHERE
 function Atmosphere() {
   return (
-    <section id="location" className="relative h-[70vh] md:h-screen overflow-hidden">
+    <section id="atmosphere" className="relative h-[70vh] md:h-screen overflow-hidden">
       <img src={IMGS.exterior} alt="Exterior" className="w-full h-full object-cover" />
       <div className="absolute inset-0 bg-black/25 flex items-center justify-center">
         <Reveal>
@@ -506,6 +506,58 @@ function MenuSection() {
   );
 }
 
+// LOCATION
+const SHOP_INFO = [
+  { label: "Address", value: "東京都渋谷区陽町 2-14-8 S&C Building 1F" },
+  { label: "Nearest Station", value: "代官山駅 徒歩6分 / 渋谷駅 徒歩12分" },
+  { label: "Hours", value: "平日 9:00 - 20:00 / 土日祝 10:00 - 19:00" },
+  { label: "Closed", value: "水曜日" },
+];
+
+function LocationSection() {
+  const mapHref = "https://www.google.com/maps/search/?api=1&query=%E6%9D%B1%E4%BA%AC%E9%83%BD%E6%B8%8B%E8%B0%B7%E5%8C%BA%E9%99%BD%E7%94%BA2-14-8%20S%26C%20Building%201F";
+
+  return (
+    <section id="location" className="px-6 md:px-12 py-24 md:py-32 bg-stone-50 border-t border-stone-100">
+      <Reveal>
+        <div className="grid grid-cols-1 md:grid-cols-[0.9fr_1.1fr] gap-14 md:gap-20">
+          <div>
+            <p className="text-[10px] tracking-[0.6em] uppercase text-stone-400 mb-6">Location</p>
+            <h2
+              className="font-light leading-tight tracking-tight text-stone-900"
+              style={{ fontFamily: "Cormorant Garamond, serif", fontSize: "clamp(48px, 6vw, 86px)" }}
+            >
+              Visit Us
+            </h2>
+            <p className="mt-8 text-[13px] leading-relaxed text-stone-400 max-w-sm">
+              Quiet light, warm coffee, and a table waiting near the station.
+            </p>
+          </div>
+
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-x-10 gap-y-8 content-end">
+            {SHOP_INFO.map(({ label, value }) => (
+              <div key={label} className="border-t border-stone-200 pt-5">
+                <p className="text-[10px] tracking-[0.35em] uppercase text-stone-300 mb-3">{label}</p>
+                <p className="text-[13px] leading-relaxed text-stone-700">{value}</p>
+              </div>
+            ))}
+
+            <a
+              href={mapHref}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="sm:col-span-2 mt-2 inline-flex w-fit items-center gap-3 border-b border-stone-900 pb-2 text-[11px] tracking-[0.3em] uppercase text-stone-900 hover:text-stone-400 hover:border-stone-300 transition-colors"
+            >
+              Open Map
+              <svg className="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5"><path d="M7 17L17 7" /><path d="M8 7h9v9" /></svg>
+            </a>
+          </div>
+        </div>
+      </Reveal>
+    </section>
+  );
+}
+
 // FOOTER
 function Footer() {
   return (
@@ -523,7 +575,7 @@ function Footer() {
           ))}
         </div>
         <div className="text-[11px] tracking-[0.2em] text-stone-400 uppercase leading-loose md:text-right">
-          Open Daily<br />9AM — 10PM<br /><br />Coffee · Food · Sweets<br />& Good Days
+          Wed Closed<br />9AM — 8PM<br /><br />Coffee · Food · Sweets<br />& Good Days
         </div>
       </div>
       <div className="mt-16 pt-8 border-t border-stone-50 flex justify-between text-[10px] tracking-[0.2em] text-stone-200 uppercase">
@@ -553,6 +605,7 @@ export default function App() {
         bg="bg-stone-50"
       />
       <MenuSection />
+      <LocationSection />
       <Footer />
     </div>
   );
