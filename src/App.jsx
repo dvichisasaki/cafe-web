@@ -12,6 +12,9 @@ const IMGS = {
   montblanc: imagePath("montblanc.jpg"),
   menu: imagePath("menu.jpg"),
   latte: imagePath("latte.jpg"),
+  caramelMacchiato: imagePath("caramel-macchiato.jpg"),
+  americano: imagePath("americano.jpg"),
+  iceLatte: imagePath("ice-latte.jpg"),
 };
 
 function useReveal(threshold = 0.15) {
@@ -156,6 +159,139 @@ function SplitSection({ id, imgSrc, imgAlt, label, title, desc, reverse = false,
           </h2>
           <p className="mt-8 text-[13px] leading-relaxed text-stone-400 max-w-xs border-t border-stone-100 pt-6">{desc}</p>
         </Reveal>
+      </div>
+    </section>
+  );
+}
+
+// COFFEE SECTION — swipe through signature cups
+const COFFEE_ITEMS = [
+  { img: IMGS.caramelMacchiato, name: "Caramel Macchiato", note: "Velvety espresso, steamed milk, and a ribbon of caramel.", price: "¥650" },
+  { img: IMGS.americano,        name: "Americano",          note: "Espresso opened with hot water for a clean, quiet finish.", price: "¥500" },
+  { img: IMGS.iceLatte,         name: "Ice Latte",          note: "Chilled espresso and milk, smooth over ice.", price: "¥600" },
+];
+
+function CoffeeSection() {
+  const [index, setIndex] = useState(0);
+  const [direction, setDirection] = useState(null);
+  const [animating, setAnimating] = useState(false);
+  const accRef = useRef(0);
+  const sectionRef = useRef(null);
+
+  const goTo = useCallback((next, dir) => {
+    if (animating) return;
+    setDirection(dir);
+    setAnimating(true);
+    setTimeout(() => {
+      setIndex(next);
+      setDirection(null);
+      setAnimating(false);
+    }, 400);
+  }, [animating]);
+
+  const prev = useCallback(() => goTo((index - 1 + COFFEE_ITEMS.length) % COFFEE_ITEMS.length, "right"), [goTo, index]);
+  const next = useCallback(() => goTo((index + 1) % COFFEE_ITEMS.length, "left"), [goTo, index]);
+
+  useEffect(() => {
+    const el = sectionRef.current;
+    if (!el) return;
+    let timer = null;
+
+    const onWheel = (e) => {
+      if (Math.abs(e.deltaX) < Math.abs(e.deltaY)) return;
+      e.preventDefault();
+      accRef.current += e.deltaX;
+      clearTimeout(timer);
+      timer = setTimeout(() => {
+        if (accRef.current > 40) next();
+        else if (accRef.current < -40) prev();
+        accRef.current = 0;
+      }, 80);
+    };
+
+    el.addEventListener("wheel", onWheel, { passive: false });
+    return () => el.removeEventListener("wheel", onWheel);
+  }, [next, prev]);
+
+  const touchStartX = useRef(null);
+  const onTouchStart = (e) => { touchStartX.current = e.touches[0].clientX; };
+  const onTouchEnd = (e) => {
+    if (touchStartX.current === null) return;
+    const dx = touchStartX.current - e.changedTouches[0].clientX;
+    if (dx > 40) next();
+    else if (dx < -40) prev();
+    touchStartX.current = null;
+  };
+
+  const item = COFFEE_ITEMS[index];
+  const imgSlideIn  = direction === "left"  ? "translate-x-8 opacity-0"  : direction === "right" ? "-translate-x-8 opacity-0" : "translate-x-0 opacity-100";
+  const textSlideIn = direction === "left"  ? "translate-x-4 opacity-0"  : direction === "right" ? "-translate-x-4 opacity-0" : "translate-x-0 opacity-100";
+
+  return (
+    <section
+      id="coffee"
+      ref={sectionRef}
+      className="flex flex-col md:flex-row min-h-screen select-none"
+      onTouchStart={onTouchStart}
+      onTouchEnd={onTouchEnd}
+    >
+      <div className="relative w-full md:w-1/2 h-[50vh] md:h-auto overflow-hidden bg-stone-100">
+        <img
+          key={index}
+          src={item.img}
+          alt={item.name}
+          className={`w-full h-full object-cover transition-all duration-400 ease-out ${imgSlideIn}`}
+          style={{ transition: "transform 0.4s ease, opacity 0.4s ease" }}
+        />
+
+        <div className="absolute bottom-5 left-1/2 -translate-x-1/2 flex gap-2">
+          {COFFEE_ITEMS.map((_, i) => (
+            <button
+              key={i}
+              onClick={() => goTo(i, i > index ? "left" : "right")}
+              className={`rounded-full transition-all duration-300 ${i === index ? "bg-white w-5 h-1.5" : "bg-white/40 w-1.5 h-1.5"}`}
+              aria-label={`Go to ${COFFEE_ITEMS[i].name}`}
+            />
+          ))}
+        </div>
+
+        <button
+          onClick={prev}
+          className="absolute left-4 top-1/2 -translate-y-1/2 w-9 h-9 flex items-center justify-center rounded-full bg-white/20 backdrop-blur-sm hover:bg-white/40 transition-all duration-200 text-white"
+          aria-label="Previous coffee"
+        >
+          <svg className="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5"><path d="M15 19l-7-7 7-7" /></svg>
+        </button>
+        <button
+          onClick={next}
+          className="absolute right-4 top-1/2 -translate-y-1/2 w-9 h-9 flex items-center justify-center rounded-full bg-white/20 backdrop-blur-sm hover:bg-white/40 transition-all duration-200 text-white"
+          aria-label="Next coffee"
+        >
+          <svg className="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5"><path d="M9 5l7 7-7 7" /></svg>
+        </button>
+      </div>
+
+      <div className="w-full md:w-1/2 flex flex-col justify-end px-8 py-14 md:px-16 md:py-20 bg-white">
+        <div
+          key={`coffee-text-${index}`}
+          className={`transition-all duration-400 ease-out ${textSlideIn}`}
+          style={{ transition: "transform 0.4s ease, opacity 0.4s ease" }}
+        >
+          <p className="text-[10px] tracking-[0.5em] uppercase text-stone-400 mb-5">01 — Craft</p>
+          <h2 className="font-light leading-none tracking-tight text-stone-900"
+            style={{ fontFamily: "Cormorant Garamond, serif", fontSize: "clamp(44px, 6vw, 100px)" }}>
+            {item.name}
+          </h2>
+          <p className="mt-8 text-[13px] leading-relaxed text-stone-400 max-w-xs border-t border-stone-100 pt-6">
+            {item.note}
+          </p>
+          <p className="mt-4 text-[12px] tracking-[0.3em] text-stone-300">{item.price}</p>
+
+          <p className="mt-10 text-[10px] tracking-[0.3em] uppercase text-stone-300 flex items-center gap-2">
+            <svg className="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5"><path d="M9 5l7 7-7 7" /></svg>
+            Swipe or scroll to explore
+          </p>
+        </div>
       </div>
     </section>
   );
@@ -396,15 +532,7 @@ export default function App() {
     <div className="bg-white text-stone-900" >
       <Nav />
       <Hero />
-      <SplitSection
-        id="coffee"
-        imgSrc={IMGS.latte}
-        imgAlt="Latte Art"
-        label="01 — Craft"
-        title="COFFEE"
-        desc="Each cup begins with intention. Espresso pulled at the right moment, milk steamed to silk."
-        bg="bg-white"
-      />
+      <CoffeeSection />
       <DessertSection />
       <Atmosphere />
       <SplitSection
