@@ -49,7 +49,7 @@ function Reveal({ children, className = "", delay = 0 }) {
 
 function InstagramIcon({ className = "" }) {
   return (
-    <svg className={className} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+    <svg className={className} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true" focusable="false">
       <rect x="2" y="2" width="20" height="20" rx="5" ry="5" />
       <circle cx="12" cy="12" r="4" />
       <circle cx="17.5" cy="6.5" r="0.8" fill="currentColor" stroke="none" />
@@ -71,9 +71,9 @@ function Nav() {
   const links = ["Coffee", "Dessert", "Menu", "Location"];
 
   return (
-    <nav className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${scrolled ? "bg-white/90 backdrop-blur-md border-b border-stone-100" : ""}`}>
+    <nav aria-label="Primary navigation" className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${scrolled ? "bg-white/90 backdrop-blur-md border-b border-stone-100" : ""}`}>
       <div className="flex justify-between items-center px-6 md:px-12 py-5 md:py-7">
-        <a href="#" className={`text-sm tracking-[0.3em] transition-colors duration-300 ${scrolled ? "text-stone-900" : "text-white"}`} style={{ fontFamily: "Cormorant Garamond, serif" }}>
+        <a href="#" aria-label="Sunlight & Coffee home" className={`text-sm tracking-[0.3em] transition-colors duration-300 ${scrolled ? "text-stone-900" : "text-white"}`} style={{ fontFamily: "Cormorant Garamond, serif" }}>
           S & C
         </a>
         <div className="hidden md:flex items-center gap-10">
@@ -92,14 +92,14 @@ function Nav() {
           <a href="https://instagram.com" target="_blank" rel="noopener noreferrer" className={`${scrolled ? "text-stone-900" : "text-white"}`} aria-label="Instagram">
             <InstagramIcon className="w-[18px] h-[18px]" />
           </a>
-          <button className="flex flex-col gap-1.5 p-1" onClick={() => setMenuOpen(!menuOpen)} aria-label="Menu">
+          <button className="flex flex-col gap-1.5 p-1" onClick={() => setMenuOpen(!menuOpen)} aria-label="Menu" aria-expanded={menuOpen} aria-controls="mobile-nav">
             <span className={`block w-6 h-px transition-all duration-300 ${scrolled ? "bg-stone-900" : "bg-white"} ${menuOpen ? "rotate-45 translate-y-2" : ""}`} />
             <span className={`block w-6 h-px transition-all duration-300 ${scrolled ? "bg-stone-900" : "bg-white"} ${menuOpen ? "opacity-0" : ""}`} />
             <span className={`block w-6 h-px transition-all duration-300 ${scrolled ? "bg-stone-900" : "bg-white"} ${menuOpen ? "-rotate-45 -translate-y-2.5" : ""}`} />
           </button>
         </div>
       </div>
-      <div className={`md:hidden transition-all duration-500 overflow-hidden bg-white ${menuOpen ? "max-h-64" : "max-h-0"}`}>
+      <div id="mobile-nav" className={`md:hidden transition-all duration-500 overflow-hidden bg-white ${menuOpen ? "max-h-64" : "max-h-0"}`}>
         <ul className="flex flex-col px-6 pb-6 gap-5 list-none">
           {links.map(l => (
             <li key={l}>
@@ -116,7 +116,7 @@ function Nav() {
 function Hero() {
   return (
     <section className="relative h-screen overflow-hidden">
-      <img src={IMGS.interior1} alt="Cafe interior" className="w-full h-full object-cover"
+      <img src={IMGS.interior1} alt="Sunlight & Coffeeの明るいカフェ店内" className="w-full h-full object-cover"
         style={{ animation: "heroZoom 12s ease-out forwards", transform: "scale(1.08)" }} />
       <div className="absolute inset-0 bg-gradient-to-b from-black/10 via-black/20 to-black/50" />
       <div className="absolute bottom-16 md:bottom-20 left-6 md:left-12 text-white">
@@ -236,6 +236,7 @@ function CoffeeSection() {
       className="flex flex-col md:flex-row min-h-screen select-none"
       onTouchStart={onTouchStart}
       onTouchEnd={onTouchEnd}
+      aria-labelledby="coffee-title"
     >
       <div className="relative w-full md:w-1/2 h-[50vh] md:h-auto overflow-hidden bg-stone-100">
         <img
@@ -252,7 +253,8 @@ function CoffeeSection() {
               key={i}
               onClick={() => goTo(i, i > index ? "left" : "right")}
               className={`rounded-full transition-all duration-300 ${i === index ? "bg-white w-5 h-1.5" : "bg-white/40 w-1.5 h-1.5"}`}
-              aria-label={`Go to ${COFFEE_ITEMS[i].name}`}
+              aria-label={`Show coffee slide ${i + 1}: ${COFFEE_ITEMS[i].name}`}
+              aria-current={i === index ? "true" : undefined}
             />
           ))}
         </div>
@@ -262,14 +264,14 @@ function CoffeeSection() {
           className="absolute left-4 top-1/2 -translate-y-1/2 w-9 h-9 flex items-center justify-center rounded-full bg-white/20 backdrop-blur-sm hover:bg-white/40 transition-all duration-200 text-white"
           aria-label="Previous coffee"
         >
-          <svg className="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5"><path d="M15 19l-7-7 7-7" /></svg>
+          <svg className="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" aria-hidden="true" focusable="false"><path d="M15 19l-7-7 7-7" /></svg>
         </button>
         <button
           onClick={next}
           className="absolute right-4 top-1/2 -translate-y-1/2 w-9 h-9 flex items-center justify-center rounded-full bg-white/20 backdrop-blur-sm hover:bg-white/40 transition-all duration-200 text-white"
           aria-label="Next coffee"
         >
-          <svg className="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5"><path d="M9 5l7 7-7 7" /></svg>
+          <svg className="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" aria-hidden="true" focusable="false"><path d="M9 5l7 7-7 7" /></svg>
         </button>
       </div>
 
@@ -280,17 +282,20 @@ function CoffeeSection() {
           style={{ transition: "transform 0.4s ease, opacity 0.4s ease" }}
         >
           <p className="text-[10px] tracking-[0.5em] uppercase text-stone-400 mb-5">01 — Craft</p>
-          <h2 className="font-light leading-none tracking-tight text-stone-900"
+          <h2 id="coffee-title" className="font-light leading-none tracking-tight text-stone-900"
             style={{ fontFamily: "Cormorant Garamond, serif", fontSize: "clamp(44px, 6vw, 100px)" }}>
             {item.name}
           </h2>
+          <p className="sr-only" aria-live="polite">
+            Coffee slide {index + 1} of {COFFEE_ITEMS.length}: {item.name}
+          </p>
           <p className="mt-8 text-[13px] leading-relaxed text-stone-400 max-w-xs border-t border-stone-100 pt-6">
             {item.note}
           </p>
           <p className="mt-4 text-[12px] tracking-[0.3em] text-stone-300">{item.price}</p>
 
           <p className="mt-10 text-[10px] tracking-[0.3em] uppercase text-stone-300 flex items-center gap-2">
-            <svg className="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5"><path d="M9 5l7 7-7 7" /></svg>
+            <svg className="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" aria-hidden="true" focusable="false"><path d="M9 5l7 7-7 7" /></svg>
             Swipe or scroll to explore
           </p>
         </div>
@@ -374,6 +379,7 @@ function DessertSection() {
       className="flex flex-col md:flex-row-reverse min-h-screen select-none"
       onTouchStart={onTouchStart}
       onTouchEnd={onTouchEnd}
+      aria-labelledby="dessert-title"
     >
       {/* Photo side */}
       <div className="relative w-full md:w-1/2 h-[50vh] md:h-auto overflow-hidden bg-stone-100">
@@ -392,7 +398,8 @@ function DessertSection() {
               key={i}
               onClick={() => goTo(i, i > index ? "left" : "right")}
               className={`rounded-full transition-all duration-300 ${i === index ? "bg-white w-5 h-1.5" : "bg-white/40 w-1.5 h-1.5"}`}
-              aria-label={`Go to ${DESSERT_ITEMS[i].name}`}
+              aria-label={`Show dessert slide ${i + 1}: ${DESSERT_ITEMS[i].name}`}
+              aria-current={i === index ? "true" : undefined}
             />
           ))}
         </div>
@@ -401,16 +408,16 @@ function DessertSection() {
         <button
           onClick={prev}
           className="absolute left-4 top-1/2 -translate-y-1/2 w-9 h-9 flex items-center justify-center rounded-full bg-white/20 backdrop-blur-sm hover:bg-white/40 transition-all duration-200 text-white"
-          aria-label="Previous"
+          aria-label="Previous dessert"
         >
-          <svg className="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5"><path d="M15 19l-7-7 7-7" /></svg>
+          <svg className="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" aria-hidden="true" focusable="false"><path d="M15 19l-7-7 7-7" /></svg>
         </button>
         <button
           onClick={next}
           className="absolute right-4 top-1/2 -translate-y-1/2 w-9 h-9 flex items-center justify-center rounded-full bg-white/20 backdrop-blur-sm hover:bg-white/40 transition-all duration-200 text-white"
-          aria-label="Next"
+          aria-label="Next dessert"
         >
-          <svg className="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5"><path d="M9 5l7 7-7 7" /></svg>
+          <svg className="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" aria-hidden="true" focusable="false"><path d="M9 5l7 7-7 7" /></svg>
         </button>
       </div>
 
@@ -422,10 +429,13 @@ function DessertSection() {
           style={{ transition: "transform 0.4s ease, opacity 0.4s ease" }}
         >
           <p className="text-[10px] tracking-[0.5em] uppercase text-stone-400 mb-5">02 — Sweet</p>
-          <h2 className="font-light leading-none tracking-tight text-stone-900"
+          <h2 id="dessert-title" className="font-light leading-none tracking-tight text-stone-900"
             style={{ fontFamily: "Cormorant Garamond, serif", fontSize: "clamp(44px, 6vw, 100px)" }}>
             {item.name}
           </h2>
+          <p className="sr-only" aria-live="polite">
+            Dessert slide {index + 1} of {DESSERT_ITEMS.length}: {item.name}
+          </p>
           <p className="mt-8 text-[13px] leading-relaxed text-stone-400 max-w-xs border-t border-stone-100 pt-6">
             {item.note}
           </p>
@@ -433,7 +443,7 @@ function DessertSection() {
 
           {/* Swipe hint */}
           <p className="mt-10 text-[10px] tracking-[0.3em] uppercase text-stone-300 flex items-center gap-2">
-            <svg className="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5"><path d="M9 5l7 7-7 7" /></svg>
+            <svg className="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" aria-hidden="true" focusable="false"><path d="M9 5l7 7-7 7" /></svg>
             Swipe or scroll to explore
           </p>
         </div>
@@ -446,7 +456,7 @@ function DessertSection() {
 function Atmosphere() {
   return (
     <section id="atmosphere" className="relative h-[70vh] md:h-screen overflow-hidden">
-      <img src={IMGS.exterior} alt="Exterior" className="w-full h-full object-cover" />
+      <img src={IMGS.exterior} alt="Sunlight & Coffeeの外観" className="w-full h-full object-cover" />
       <div className="absolute inset-0 bg-black/25 flex items-center justify-center">
         <Reveal>
           <div className="text-center text-white px-6">
@@ -471,6 +481,12 @@ function MenuSection() {
     return () => window.removeEventListener("keydown", fn);
   }, []);
 
+  const openLightboxFromKeyboard = (e) => {
+    if (e.key !== "Enter" && e.key !== " ") return;
+    e.preventDefault();
+    setLightbox(true);
+  };
+
   return (
     <>
       <section id="menu" className="px-6 md:px-12 py-24 md:py-40 bg-white">
@@ -484,21 +500,35 @@ function MenuSection() {
           </div>
         </Reveal>
         <Reveal delay={150}>
-          <div className="cursor-zoom-in overflow-hidden block w-full md:max-w-6xl md:mx-auto" onClick={() => setLightbox(true)}>
+          <div
+            className="cursor-zoom-in overflow-hidden block w-full md:max-w-6xl md:mx-auto"
+            onClick={() => setLightbox(true)}
+            onKeyDown={openLightboxFromKeyboard}
+            role="button"
+            tabIndex={0}
+            aria-label="メニュー画像を拡大表示する"
+          >
             <picture>
               <source media="(min-width: 768px)" srcSet={IMGS.menuDesktop} />
-              <img src={IMGS.menu} alt="Full Menu" className="w-full transition-transform duration-700 hover:scale-[1.02]" />
+              <img src={IMGS.menu} alt="Sunlight & Coffeeのコーヒー、デザート、追加オプションを掲載したメニュー" className="w-full transition-transform duration-700 hover:scale-[1.02]" />
             </picture>
+          </div>
+          <div className="sr-only">
+            <h3>Menu text</h3>
+            <p>Hot coffee: Espresso, Double Espresso, Americano, Flat White, Cafe Latte, Cappuccino, Mocha, Caramel Latte.</p>
+            <p>Cold coffee: Iced Americano, Iced Latte, Iced Mocha, Cold Brew.</p>
+            <p>Dessert: Tiramisu, Chocolate Cake, Mont Blanc, Cheesecake.</p>
+            <p>Add-ons: Extra Shot, Oat Milk, Almond Milk, Soy Milk, Caramel Syrup, Vanilla Syrup, Hazelnut Syrup, Chocolate Syrup, Whipped Cream.</p>
           </div>
           <p className="mt-6 text-[11px] tracking-[0.2em] text-stone-300 uppercase">Tax included · Prices may change seasonally</p>
         </Reveal>
       </section>
       {lightbox && (
-        <div className="fixed inset-0 bg-black/90 z-50 flex items-center justify-center cursor-zoom-out p-4" onClick={() => setLightbox(false)}>
-          <button className="absolute top-6 right-8 text-white text-[11px] tracking-[0.3em] uppercase hover:opacity-60 transition-opacity" onClick={() => setLightbox(false)}>Close</button>
+        <div className="fixed inset-0 bg-black/90 z-50 flex items-center justify-center cursor-zoom-out p-4" onClick={() => setLightbox(false)} role="dialog" aria-modal="true" aria-label="Expanded menu image">
+          <button className="absolute top-6 right-8 text-white text-[11px] tracking-[0.3em] uppercase hover:opacity-60 transition-opacity" onClick={() => setLightbox(false)} autoFocus>Close</button>
           <picture onClick={(e) => e.stopPropagation()}>
             <source media="(min-width: 768px)" srcSet={IMGS.menuDesktop} />
-            <img src={IMGS.menu} alt="Menu" className="max-w-full max-h-[90vh] object-contain" />
+            <img src={IMGS.menu} alt="Expanded Sunlight & Coffee menu" className="max-w-full max-h-[90vh] object-contain" />
           </picture>
         </div>
       )}
@@ -546,10 +576,11 @@ function LocationSection() {
               href={mapHref}
               target="_blank"
               rel="noopener noreferrer"
+              aria-label="Google MapsでSunlight & Coffeeの架空住所を開く"
               className="sm:col-span-2 mt-2 inline-flex w-fit items-center gap-3 border-b border-stone-900 pb-2 text-[11px] tracking-[0.3em] uppercase text-stone-900 hover:text-stone-400 hover:border-stone-300 transition-colors"
             >
               Open Map
-              <svg className="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5"><path d="M7 17L17 7" /><path d="M8 7h9v9" /></svg>
+              <svg className="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" aria-hidden="true" focusable="false"><path d="M7 17L17 7" /><path d="M8 7h9v9" /></svg>
             </a>
           </div>
         </div>
@@ -591,21 +622,23 @@ export default function App() {
   return (
     <div className="bg-white text-stone-900" >
       <Nav />
-      <Hero />
-      <CoffeeSection />
-      <DessertSection />
-      <Atmosphere />
-      <SplitSection
-        id="space"
-        imgSrc={IMGS.interior2}
-        imgAlt="Interior"
-        label="03 — Space"
-        title="THE ROOM"
-        desc="Concrete, wood, and light. A space designed to disappear into."
-        bg="bg-stone-50"
-      />
-      <MenuSection />
-      <LocationSection />
+      <main>
+        <Hero />
+        <CoffeeSection />
+        <DessertSection />
+        <Atmosphere />
+        <SplitSection
+          id="space"
+          imgSrc={IMGS.interior2}
+          imgAlt="Sunlight & Coffeeの木とコンクリートを使った客席"
+          label="03 — Space"
+          title="THE ROOM"
+          desc="Concrete, wood, and light. A space designed to disappear into."
+          bg="bg-stone-50"
+        />
+        <MenuSection />
+        <LocationSection />
+      </main>
       <Footer />
     </div>
   );

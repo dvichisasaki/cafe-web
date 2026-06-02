@@ -1,19 +1,67 @@
 <!doctype html>
-<html lang="en">
+<html lang="ja">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="theme-color" content="#ffffff" />
     <meta
       name="description"
-      content="Sunlight & Coffee is a refined cafe landing page featuring coffee, dessert, menu, and location information."
+      content="Sunlight & Coffeeは、渋谷・代官山エリアにある架空のカフェサイトです。ハンドクラフトのコーヒー、デザート、メニュー、営業時間、アクセス情報を掲載しています。"
     />
-    <meta property="og:title" content="Sunlight & Coffee" />
+    <link rel="canonical" href="https://dvichisasaki.github.io/cafe-web/" />
+    <meta name="robots" content="index, follow" />
+    <meta property="og:site_name" content="Sunlight & Coffee" />
+    <meta property="og:title" content="Sunlight & Coffee | 渋谷・代官山のカフェ" />
     <meta
       property="og:description"
-      content="Coffee, dessert, and quiet moments in a light-filled cafe."
+      content="渋谷・代官山エリアで、コーヒーとデザートを静かに楽しむ架空のカフェサイト。営業時間、メニュー、アクセス情報を掲載。"
     />
     <meta property="og:type" content="website" />
-    <title>Sunlight & Coffee</title>
+    <meta property="og:url" content="https://dvichisasaki.github.io/cafe-web/" />
+    <meta property="og:image" content="https://dvichisasaki.github.io/cafe-web/images/interior1.jpg" />
+    <meta property="og:image:alt" content="Sunlight & Coffeeの明るいカフェ店内" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Sunlight & Coffee | 渋谷・代官山のカフェ" />
+    <meta
+      name="twitter:description"
+      content="コーヒー、デザート、メニュー、営業時間、アクセス情報を掲載した架空のカフェサイト。"
+    />
+    <meta name="twitter:image" content="https://dvichisasaki.github.io/cafe-web/images/interior1.jpg" />
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "CafeOrCoffeeShop",
+        "name": "Sunlight & Coffee",
+        "url": "https://dvichisasaki.github.io/cafe-web/",
+        "image": "https://dvichisasaki.github.io/cafe-web/images/interior1.jpg",
+        "description": "渋谷・代官山エリアにある架空のカフェサイト。コーヒー、デザート、メニュー、アクセス情報を掲載しています。",
+        "servesCuisine": ["Coffee", "Dessert"],
+        "priceRange": "¥¥",
+        "address": {
+          "@type": "PostalAddress",
+          "streetAddress": "陽町 2-14-8 S&C Building 1F",
+          "addressLocality": "渋谷区",
+          "addressRegion": "東京都",
+          "addressCountry": "JP"
+        },
+        "openingHoursSpecification": [
+          {
+            "@type": "OpeningHoursSpecification",
+            "dayOfWeek": ["Monday", "Tuesday", "Thursday", "Friday"],
+            "opens": "09:00",
+            "closes": "20:00"
+          },
+          {
+            "@type": "OpeningHoursSpecification",
+            "dayOfWeek": ["Saturday", "Sunday"],
+            "opens": "10:00",
+            "closes": "19:00"
+          }
+        ],
+        "sameAs": ["https://instagram.com"]
+      }
+    </script>
+    <title>Sunlight & Coffee | 渋谷・代官山のカフェ</title>
   </head>
   <body>
     <div id="root"></div>
