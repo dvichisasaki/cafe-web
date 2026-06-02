@@ -11,6 +11,7 @@ const IMGS = {
   choco: imagePath("choco.jpg"),
   montblanc: imagePath("montblanc.jpg"),
   menu: imagePath("menu.jpg"),
+  menuDesktop: imagePath("menu-desktop.jpg"),
   latte: imagePath("latte.jpg"),
   caramelMacchiato: imagePath("caramel-macchiato.jpg"),
   americano: imagePath("americano.jpg"),
@@ -166,6 +167,7 @@ function SplitSection({ id, imgSrc, imgAlt, label, title, desc, reverse = false,
 
 // COFFEE SECTION — swipe through signature cups
 const COFFEE_ITEMS = [
+  { img: IMGS.latte,            name: "Craft Coffee",      note: "Espresso pulled with intention, finished with a quiet pour of milk.", price: "¥600" },
   { img: IMGS.caramelMacchiato, name: "Caramel Macchiato", note: "Velvety espresso, steamed milk, and a ribbon of caramel.", price: "¥650" },
   { img: IMGS.americano,        name: "Americano",          note: "Espresso opened with hot water for a clean, quiet finish.", price: "¥500" },
   { img: IMGS.iceLatte,         name: "Ice Latte",          note: "Chilled espresso and milk, smooth over ice.", price: "¥600" },
@@ -482,8 +484,11 @@ function MenuSection() {
           </div>
         </Reveal>
         <Reveal delay={150}>
-          <div className="cursor-zoom-in overflow-hidden inline-block w-full md:max-w-2xl" onClick={() => setLightbox(true)}>
-            <img src={IMGS.menu} alt="Full Menu" className="w-full transition-transform duration-700 hover:scale-[1.02]" />
+          <div className="cursor-zoom-in overflow-hidden block w-full md:max-w-6xl md:mx-auto" onClick={() => setLightbox(true)}>
+            <picture>
+              <source media="(min-width: 768px)" srcSet={IMGS.menuDesktop} />
+              <img src={IMGS.menu} alt="Full Menu" className="w-full transition-transform duration-700 hover:scale-[1.02]" />
+            </picture>
           </div>
           <p className="mt-6 text-[11px] tracking-[0.2em] text-stone-300 uppercase">Tax included · Prices may change seasonally</p>
         </Reveal>
@@ -491,7 +496,10 @@ function MenuSection() {
       {lightbox && (
         <div className="fixed inset-0 bg-black/90 z-50 flex items-center justify-center cursor-zoom-out p-4" onClick={() => setLightbox(false)}>
           <button className="absolute top-6 right-8 text-white text-[11px] tracking-[0.3em] uppercase hover:opacity-60 transition-opacity" onClick={() => setLightbox(false)}>Close</button>
-          <img src={IMGS.menu} alt="Menu" className="max-w-full max-h-[90vh] object-contain" onClick={(e) => e.stopPropagation()} />
+          <picture onClick={(e) => e.stopPropagation()}>
+            <source media="(min-width: 768px)" srcSet={IMGS.menuDesktop} />
+            <img src={IMGS.menu} alt="Menu" className="max-w-full max-h-[90vh] object-contain" />
+          </picture>
         </div>
       )}
     </>
