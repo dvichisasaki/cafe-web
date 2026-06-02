@@ -18,6 +18,8 @@ const IMGS = {
   iceLatte: imagePath("ice-latte.jpg"),
 };
 
+const INSTAGRAM_URL = "https://instagram.com/sunlight.coffee";
+
 function useReveal(threshold = 0.15) {
   const ref = useRef(null);
   const [visible, setVisible] = useState(false);
@@ -84,12 +86,12 @@ function Nav() {
               </li>
             ))}
           </ul>
-          <a href="https://instagram.com" target="_blank" rel="noopener noreferrer" className={`transition-all duration-300 hover:opacity-60 ${scrolled ? "text-stone-900" : "text-white"}`} aria-label="Instagram">
+          <a href={INSTAGRAM_URL} target="_blank" rel="noopener noreferrer" className={`transition-all duration-300 hover:opacity-60 ${scrolled ? "text-stone-900" : "text-white"}`} aria-label="Instagram">
             <InstagramIcon className="w-[18px] h-[18px]" />
           </a>
         </div>
         <div className="md:hidden flex items-center gap-4">
-          <a href="https://instagram.com" target="_blank" rel="noopener noreferrer" className={`${scrolled ? "text-stone-900" : "text-white"}`} aria-label="Instagram">
+          <a href={INSTAGRAM_URL} target="_blank" rel="noopener noreferrer" className={`${scrolled ? "text-stone-900" : "text-white"}`} aria-label="Instagram">
             <InstagramIcon className="w-[18px] h-[18px]" />
           </a>
           <button className="flex flex-col gap-1.5 p-1" onClick={() => setMenuOpen(!menuOpen)} aria-label="Menu" aria-expanded={menuOpen} aria-controls="mobile-nav">
@@ -103,7 +105,7 @@ function Nav() {
         <ul className="flex flex-col px-6 pb-6 gap-5 list-none">
           {links.map(l => (
             <li key={l}>
-              <a href={`#${l.toLowerCase()}`} onClick={() => setMenuOpen(false)} className="block text-[13px] tracking-[0.3em] uppercase text-stone-900 hover:text-stone-400 transition-colors">{l}</a>
+              <a href={`#${l.toLowerCase()}`} onClick={() => setMenuOpen(false)} className="block text-[13px] tracking-[0.3em] uppercase text-stone-900 hover:text-stone-500 transition-colors">{l}</a>
             </li>
           ))}
         </ul>
@@ -153,12 +155,12 @@ function SplitSection({ id, imgSrc, imgAlt, label, title, desc, reverse = false,
       </div>
       <div className={`w-full md:w-1/2 flex flex-col justify-end px-8 py-14 md:px-16 md:py-20 ${bg}`}>
         <Reveal>
-          <p className="text-[10px] tracking-[0.5em] uppercase text-stone-400 mb-5">{label}</p>
+          <p className="text-[10px] tracking-[0.5em] uppercase text-stone-500 mb-5">{label}</p>
           <h2 className="font-light leading-none tracking-tight text-stone-900"
             style={{ fontFamily: "Cormorant Garamond, serif", fontSize: "clamp(56px, 7vw, 120px)" }}>
             {title}
           </h2>
-          <p className="mt-8 text-[13px] leading-relaxed text-stone-400 max-w-xs border-t border-stone-100 pt-6">{desc}</p>
+          <p className="mt-8 text-[13px] leading-relaxed text-stone-500 max-w-xs border-t border-stone-100 pt-6">{desc}</p>
         </Reveal>
       </div>
     </section>
@@ -281,7 +283,7 @@ function CoffeeSection() {
           className={`transition-all duration-400 ease-out ${textSlideIn}`}
           style={{ transition: "transform 0.4s ease, opacity 0.4s ease" }}
         >
-          <p className="text-[10px] tracking-[0.5em] uppercase text-stone-400 mb-5">01 — Craft</p>
+          <p className="text-[10px] tracking-[0.5em] uppercase text-stone-500 mb-5">01 — Craft</p>
           <h2 id="coffee-title" className="font-light leading-none tracking-tight text-stone-900"
             style={{ fontFamily: "Cormorant Garamond, serif", fontSize: "clamp(44px, 6vw, 100px)" }}>
             {item.name}
@@ -289,12 +291,12 @@ function CoffeeSection() {
           <p className="sr-only" aria-live="polite">
             Coffee slide {index + 1} of {COFFEE_ITEMS.length}: {item.name}
           </p>
-          <p className="mt-8 text-[13px] leading-relaxed text-stone-400 max-w-xs border-t border-stone-100 pt-6">
+          <p className="mt-8 text-[13px] leading-relaxed text-stone-500 max-w-xs border-t border-stone-100 pt-6">
             {item.note}
           </p>
-          <p className="mt-4 text-[12px] tracking-[0.3em] text-stone-300">{item.price}</p>
+          <p className="mt-4 text-[12px] tracking-[0.3em] text-stone-400">{item.price}</p>
 
-          <p className="mt-10 text-[10px] tracking-[0.3em] uppercase text-stone-300 flex items-center gap-2">
+          <p className="mt-10 text-[10px] tracking-[0.3em] uppercase text-stone-400 flex items-center gap-2">
             <svg className="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" aria-hidden="true" focusable="false"><path d="M9 5l7 7-7 7" /></svg>
             Swipe or scroll to explore
           </p>
@@ -428,7 +430,7 @@ function DessertSection() {
           className={`transition-all duration-400 ease-out ${textSlideIn}`}
           style={{ transition: "transform 0.4s ease, opacity 0.4s ease" }}
         >
-          <p className="text-[10px] tracking-[0.5em] uppercase text-stone-400 mb-5">02 — Sweet</p>
+          <p className="text-[10px] tracking-[0.5em] uppercase text-stone-500 mb-5">02 — Sweet</p>
           <h2 id="dessert-title" className="font-light leading-none tracking-tight text-stone-900"
             style={{ fontFamily: "Cormorant Garamond, serif", fontSize: "clamp(44px, 6vw, 100px)" }}>
             {item.name}
@@ -436,13 +438,13 @@ function DessertSection() {
           <p className="sr-only" aria-live="polite">
             Dessert slide {index + 1} of {DESSERT_ITEMS.length}: {item.name}
           </p>
-          <p className="mt-8 text-[13px] leading-relaxed text-stone-400 max-w-xs border-t border-stone-100 pt-6">
+          <p className="mt-8 text-[13px] leading-relaxed text-stone-500 max-w-xs border-t border-stone-100 pt-6">
             {item.note}
           </p>
-          <p className="mt-4 text-[12px] tracking-[0.3em] text-stone-300">{item.price}</p>
+          <p className="mt-4 text-[12px] tracking-[0.3em] text-stone-400">{item.price}</p>
 
           {/* Swipe hint */}
-          <p className="mt-10 text-[10px] tracking-[0.3em] uppercase text-stone-300 flex items-center gap-2">
+          <p className="mt-10 text-[10px] tracking-[0.3em] uppercase text-stone-400 flex items-center gap-2">
             <svg className="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" aria-hidden="true" focusable="false"><path d="M9 5l7 7-7 7" /></svg>
             Swipe or scroll to explore
           </p>
@@ -473,13 +475,95 @@ function Atmosphere() {
 }
 
 // MENU
+const MENU_GROUPS = [
+  {
+    title: "Hot coffee",
+    items: [
+      { name: "Espresso", price: "¥250", description: "Bold and rich. The classic foundation." },
+      { name: "Double Espresso", price: "¥300", description: "Double shot of espresso for extra strength." },
+      { name: "Americano", price: "¥350", description: "Espresso with hot water. Clean and smooth." },
+      { name: "Flat White", price: "¥400", description: "Smooth and velvety with steamed milk." },
+      { name: "Cafe Latte", price: "¥450", description: "Espresso with steamed milk and a light foam." },
+      { name: "Cappuccino", price: "¥400", description: "Equal parts espresso, steamed milk and foam." },
+      { name: "Mocha", price: "¥475", description: "Espresso with chocolate and steamed milk." },
+      { name: "Caramel Latte", price: "¥475", description: "Smooth latte with sweet caramel flavor." },
+    ],
+  },
+  {
+    title: "Cold coffee",
+    items: [
+      { name: "Iced Americano", price: "¥375", description: "Espresso with cold water poured over ice." },
+      { name: "Iced Latte", price: "¥450", description: "Espresso with cold milk served over ice." },
+      { name: "Iced Mocha", price: "¥475", description: "Espresso with chocolate and cold milk." },
+      { name: "Cold Brew", price: "¥450", description: "Smooth, slow-steeped and naturally sweet." },
+    ],
+  },
+  {
+    title: "Dessert",
+    items: [
+      { name: "Tiramisu", price: "¥650", description: "Mascarpone cream and espresso-soaked ladyfingers with cocoa powder." },
+      { name: "Chocolate Cake", price: "¥600", description: "Rich chocolate sponge with creamy chocolate mousse." },
+      { name: "Mont Blanc", price: "¥650", description: "Chestnut cream over sponge cake with a hint of sweetness." },
+      { name: "Cheesecake", price: "¥550", description: "Creamy and smooth cheesecake with a crunchy base." },
+    ],
+  },
+  {
+    title: "Add-ons",
+    items: [
+      { name: "Extra Shot", price: "+ ¥75" },
+      { name: "Oat Milk", price: "+ ¥75" },
+      { name: "Almond Milk", price: "+ ¥75" },
+      { name: "Soy Milk", price: "+ ¥75" },
+      { name: "Caramel Syrup", price: "+ ¥75" },
+      { name: "Vanilla Syrup", price: "+ ¥75" },
+      { name: "Hazelnut Syrup", price: "+ ¥75" },
+      { name: "Chocolate Syrup", price: "+ ¥75" },
+      { name: "Whipped Cream", price: "+ ¥75" },
+    ],
+  },
+];
+
 function MenuSection() {
   const [lightbox, setLightbox] = useState(false);
-  useEffect(() => {
-    const fn = (e) => { if (e.key === "Escape") setLightbox(false); };
-    window.addEventListener("keydown", fn);
-    return () => window.removeEventListener("keydown", fn);
+  const closeButtonRef = useRef(null);
+  const menuTriggerRef = useRef(null);
+
+  const closeLightbox = useCallback(() => {
+    setLightbox(false);
+    window.setTimeout(() => menuTriggerRef.current?.focus(), 0);
   }, []);
+
+  useEffect(() => {
+    if (!lightbox) return undefined;
+
+    const fn = (e) => {
+      if (e.key === "Escape") {
+        closeLightbox();
+        return;
+      }
+
+      if (e.key !== "Tab") return;
+
+      const focusable = Array.from(
+        document.querySelectorAll('[role="dialog"] button, [role="dialog"] [href], [role="dialog"] [tabindex]:not([tabindex="-1"])')
+      ).filter((el) => !el.disabled && el.offsetParent !== null);
+      if (!focusable.length) return;
+
+      const first = focusable[0];
+      const last = focusable[focusable.length - 1];
+      if (e.shiftKey && document.activeElement === first) {
+        e.preventDefault();
+        last.focus();
+      } else if (!e.shiftKey && document.activeElement === last) {
+        e.preventDefault();
+        first.focus();
+      }
+    };
+
+    window.addEventListener("keydown", fn);
+    closeButtonRef.current?.focus();
+    return () => window.removeEventListener("keydown", fn);
+  }, [closeLightbox, lightbox]);
 
   const openLightboxFromKeyboard = (e) => {
     if (e.key !== "Enter" && e.key !== " ") return;
@@ -496,11 +580,12 @@ function MenuSection() {
               style={{ fontFamily: "Cormorant Garamond, serif", fontSize: "clamp(48px, 6vw, 80px)" }}>
               Menu
             </h2>
-            <p className="text-[11px] tracking-[0.3em] text-stone-400 uppercase">Tap to enlarge</p>
+            <p className="text-[11px] tracking-[0.3em] text-stone-500 uppercase">Tap to enlarge</p>
           </div>
         </Reveal>
         <Reveal delay={150}>
           <div
+            ref={menuTriggerRef}
             className="cursor-zoom-in overflow-hidden block w-full md:max-w-6xl md:mx-auto"
             onClick={() => setLightbox(true)}
             onKeyDown={openLightboxFromKeyboard}
@@ -514,18 +599,27 @@ function MenuSection() {
             </picture>
           </div>
           <div className="sr-only">
-            <h3>Menu text</h3>
-            <p>Hot coffee: Espresso, Double Espresso, Americano, Flat White, Cafe Latte, Cappuccino, Mocha, Caramel Latte.</p>
-            <p>Cold coffee: Iced Americano, Iced Latte, Iced Mocha, Cold Brew.</p>
-            <p>Dessert: Tiramisu, Chocolate Cake, Mont Blanc, Cheesecake.</p>
-            <p>Add-ons: Extra Shot, Oat Milk, Almond Milk, Soy Milk, Caramel Syrup, Vanilla Syrup, Hazelnut Syrup, Chocolate Syrup, Whipped Cream.</p>
+            <h3>Menu details</h3>
+            {MENU_GROUPS.map((group) => (
+              <section key={group.title} aria-labelledby={`menu-${group.title.toLowerCase().replace(/\s+/g, "-")}`}>
+                <h4 id={`menu-${group.title.toLowerCase().replace(/\s+/g, "-")}`}>{group.title}</h4>
+                <dl>
+                  {group.items.map((menuItem) => (
+                    <div key={menuItem.name}>
+                      <dt>{menuItem.name}</dt>
+                      <dd>{menuItem.price}{menuItem.description ? ` - ${menuItem.description}` : ""}</dd>
+                    </div>
+                  ))}
+                </dl>
+              </section>
+            ))}
           </div>
-          <p className="mt-6 text-[11px] tracking-[0.2em] text-stone-300 uppercase">Tax included · Prices may change seasonally</p>
+          <p className="mt-6 text-[11px] tracking-[0.2em] text-stone-400 uppercase">Tax included · Prices may change seasonally</p>
         </Reveal>
       </section>
       {lightbox && (
-        <div className="fixed inset-0 bg-black/90 z-50 flex items-center justify-center cursor-zoom-out p-4" onClick={() => setLightbox(false)} role="dialog" aria-modal="true" aria-label="Expanded menu image">
-          <button className="absolute top-6 right-8 text-white text-[11px] tracking-[0.3em] uppercase hover:opacity-60 transition-opacity" onClick={() => setLightbox(false)} autoFocus>Close</button>
+        <div className="fixed inset-0 bg-black/90 z-50 flex items-center justify-center cursor-zoom-out p-4" onClick={closeLightbox} role="dialog" aria-modal="true" aria-label="Expanded menu image">
+          <button ref={closeButtonRef} className="absolute top-6 right-8 text-white text-[11px] tracking-[0.3em] uppercase hover:opacity-60 transition-opacity" onClick={closeLightbox}>Close</button>
           <picture onClick={(e) => e.stopPropagation()}>
             <source media="(min-width: 768px)" srcSet={IMGS.menuDesktop} />
             <img src={IMGS.menu} alt="Expanded Sunlight & Coffee menu" className="max-w-full max-h-[90vh] object-contain" />
@@ -552,14 +646,14 @@ function LocationSection() {
       <Reveal>
         <div className="grid grid-cols-1 md:grid-cols-[0.9fr_1.1fr] gap-14 md:gap-20">
           <div>
-            <p className="text-[10px] tracking-[0.6em] uppercase text-stone-400 mb-6">Location</p>
+            <p className="text-[10px] tracking-[0.6em] uppercase text-stone-500 mb-6">Location</p>
             <h2
               className="font-light leading-tight tracking-tight text-stone-900"
               style={{ fontFamily: "Cormorant Garamond, serif", fontSize: "clamp(48px, 6vw, 86px)" }}
             >
               Visit Us
             </h2>
-            <p className="mt-8 text-[13px] leading-relaxed text-stone-400 max-w-sm">
+            <p className="mt-8 text-[13px] leading-relaxed text-stone-500 max-w-sm">
               Quiet light, warm coffee, and a table waiting near the station.
             </p>
           </div>
@@ -567,7 +661,7 @@ function LocationSection() {
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-x-10 gap-y-8 content-end">
             {SHOP_INFO.map(({ label, value }) => (
               <div key={label} className="border-t border-stone-200 pt-5">
-                <p className="text-[10px] tracking-[0.35em] uppercase text-stone-300 mb-3">{label}</p>
+                <p className="text-[10px] tracking-[0.35em] uppercase text-stone-400 mb-3">{label}</p>
                 <p className="text-[13px] leading-relaxed text-stone-700">{value}</p>
               </div>
             ))}
@@ -576,8 +670,8 @@ function LocationSection() {
               href={mapHref}
               target="_blank"
               rel="noopener noreferrer"
-              aria-label="Google MapsでSunlight & Coffeeの架空住所を開く"
-              className="sm:col-span-2 mt-2 inline-flex w-fit items-center gap-3 border-b border-stone-900 pb-2 text-[11px] tracking-[0.3em] uppercase text-stone-900 hover:text-stone-400 hover:border-stone-300 transition-colors"
+              aria-label="Google MapsでSunlight & Coffeeの住所を開く"
+              className="sm:col-span-2 mt-2 inline-flex w-fit items-center gap-3 border-b border-stone-900 pb-2 text-[11px] tracking-[0.3em] uppercase text-stone-900 hover:text-stone-500 hover:border-stone-300 transition-colors"
             >
               Open Map
               <svg className="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" aria-hidden="true" focusable="false"><path d="M7 17L17 7" /><path d="M8 7h9v9" /></svg>
@@ -598,18 +692,18 @@ function Footer() {
           SUNLIGHT<br />& COFFEE
         </div>
         <div className="flex flex-col gap-4">
-          {[{ label: "Instagram", href: "https://instagram.com", icon: true }, { label: "Location", href: "#location" }, { label: "Reservations", href: "#" }].map(({ label, href, icon }) => (
+          {[{ label: "Instagram", href: INSTAGRAM_URL, icon: true }, { label: "Location", href: "#location" }].map(({ label, href, icon }) => (
             <a key={label} href={href} target={href.startsWith("http") ? "_blank" : undefined} rel={href.startsWith("http") ? "noopener noreferrer" : undefined}
-              className="flex items-center gap-2 text-[11px] tracking-[0.3em] uppercase text-stone-900 hover:text-stone-400 transition-colors w-fit">
+              className="flex items-center gap-2 text-[11px] tracking-[0.3em] uppercase text-stone-900 hover:text-stone-500 transition-colors w-fit">
               {icon && <InstagramIcon className="w-3.5 h-3.5" />}{label}
             </a>
           ))}
         </div>
-        <div className="text-[11px] tracking-[0.2em] text-stone-400 uppercase leading-loose md:text-right">
+        <div className="text-[11px] tracking-[0.2em] text-stone-500 uppercase leading-loose md:text-right">
           Wed Closed<br />9AM — 8PM<br /><br />Coffee · Food · Sweets<br />& Good Days
         </div>
       </div>
-      <div className="mt-16 pt-8 border-t border-stone-50 flex justify-between text-[10px] tracking-[0.2em] text-stone-200 uppercase">
+      <div className="mt-16 pt-8 border-t border-stone-50 flex justify-between text-[10px] tracking-[0.2em] text-stone-300 uppercase">
         <span>© 2026 Sunlight & Coffee</span>
         <span>Light · Coffee · Dessert</span>
       </div>
