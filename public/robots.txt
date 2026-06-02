@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://dvichisasaki.github.io/cafe-web/sitemap.xml
+Sitemap: https://cafe-web-khaki.vercel.app/sitemap.xml
